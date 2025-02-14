@@ -1,10 +1,10 @@
 {
   "name": "fitedu",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "FitEdu API",
+  "author": "lukaszwisniewski88",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "scripts": {
     "build": "bun build --target bun --outdir dist --minify ./src/main.ts",
     "format": "biome format --write",
