@@ -9,7 +9,7 @@
     "build": "bun build --target bun --outdir dist --minify ./src/main.ts",
     "format": "biome format --write",
     "start": "bun run ./src/main.js",
-    "start:dev": "bun run ./src/main.js --watch",
+    "start:dev": "bun --hot run ./src/main.js",
     "start:prod": "bun run dist/main.js",
     "lint": "biome lint --write",
     "test": "bun test",
@@ -39,6 +39,7 @@
     "passport-strategy": "^1.0.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
+    "uuid": "^11.0.5",
     "zod": "^3.24.2"
   },
   "devDependencies": {

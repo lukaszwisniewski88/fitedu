@@ -1,6 +1,6 @@
 import { Body, Controller, Post, Req, UseGuards } from "@nestjs/common";
 import type { Request } from "express";
-import { TokenAuthGuard } from "src/authentication/token.guard";
+import { TokenAuthGuard } from "src/authentication/guards/token.guard";
 import { CreateUserDTO } from "./dto/create.dto";
 import { IUserService } from "./user.interface";
 import { MailerService } from "src/mailer/interface";
@@ -15,10 +15,7 @@ export class UserController {
   }
   @UseGuards(TokenAuthGuard)
   @Post()
-  async create(@Body() body: CreateUserDTO, @Req() request: Request) {
-    request.session.visits = request.session.visits
-      ? request.session.visits + 1
-      : 1;
+  async create(@Body() body: CreateUserDTO) {
     await this.mailer.sendMail({
       to_email: body.email,
       subject: "Welcome to our platform",

@@ -5,11 +5,12 @@ import { LocalStrategy } from "./strategies/local";
 import { TokenStrategy } from "./strategies/token";
 import { AuthenticationService } from "./authentication.service";
 import { AuthenticationController } from "./authentication.controller";
-import { LocalAuthGuard } from "./local.guard";
-import { TokenAuthGuard } from "./token.guard";
+import { LocalAuthGuard } from "./guards/local.guard";
+import { TokenAuthGuard } from "./guards/token.guard";
 import { JwtModule } from "@nestjs/jwt";
 import { MailerModule } from "src/mailer/mailer.module";
 import { MagicLinkStrategy } from "./strategies/link";
+import { MagicLinkAuthGuard } from "./guards/mail-token.guard";
 
 @Global()
 @Module({
@@ -29,8 +30,14 @@ import { MagicLinkStrategy } from "./strategies/link";
     MagicLinkStrategy,
     LocalAuthGuard,
     TokenAuthGuard,
+    MagicLinkAuthGuard,
   ],
-  exports: [AuthenticationService, LocalAuthGuard, TokenAuthGuard],
+  exports: [
+    AuthenticationService,
+    LocalAuthGuard,
+    TokenAuthGuard,
+    MagicLinkAuthGuard,
+  ],
   controllers: [AuthenticationController],
 })
 export class AuthenticationModule {}

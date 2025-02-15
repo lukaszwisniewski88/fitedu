@@ -1,8 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import argon2 from "argon2";
+import { IAuthenticationService } from "./types";
 
 @Injectable()
-export class AuthenticationService {
+export class AuthenticationService implements IAuthenticationService {
   hashPassword(password: string): Promise<string> {
     try {
       return argon2.hash(password);
@@ -10,9 +11,9 @@ export class AuthenticationService {
       throw new Error("Error while hashing password");
     }
   }
-  verifyPassword(hash: string, password: string): Promise<boolean> {
+  verifyPassword(input: { password: string; hash: string }): Promise<boolean> {
     try {
-      return argon2.verify(hash, password);
+      return argon2.verify(input.hash, input.password);
     } catch {
       throw new Error("Error while verifying password");
     }
