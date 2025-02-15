@@ -13,7 +13,7 @@ type MagicTokenPayload = {
 @Injectable()
 export class MagicLinkStrategy extends PassportStrategy(
   Strategy,
-  "magic-link",
+  "magic-link"
 ) {
   users: IUserService;
   jwts: JwtService;
@@ -32,6 +32,7 @@ export class MagicLinkStrategy extends PassportStrategy(
   }
   async sendMagicLink(email: string): Promise<void> {
     // check the user if exists
+
     const user = await this.users.getUserByEmail(email);
     if (!user) {
       // throw an error
@@ -61,6 +62,8 @@ export class MagicLinkStrategy extends PassportStrategy(
   }
   authenticate(req: Request): void {
     const token = req.query.token as string;
+    console.log("Validating user credentials");
+    console.log("Token:", token);
     if (!token) {
       return this.fail("Token invalid", 401);
     }

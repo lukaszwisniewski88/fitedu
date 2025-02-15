@@ -7,7 +7,10 @@ import { IUserService } from "src/user/user.interface";
 export class LocalStrategy extends PassportStrategy(Strategy, "local") {
   users: IUserService;
   constructor(users: IUserService) {
-    super();
+    super({
+      usernameField: "email",
+      passwordField: "password",
+    });
     this.users = users;
   }
 

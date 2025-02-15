@@ -1,10 +1,11 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { IUserRepository, IUserService, User } from "./user.interface";
 import { CreateUserDTO } from "./dto/create.dto";
 import { AuthenticationService } from "src/authentication/authentication.service";
 
 @Injectable()
 export class UserService implements IUserService {
+  logger = new Logger("UserService");
   repository: IUserRepository;
   authService: AuthenticationService;
   constructor(repository: IUserRepository, authService: AuthenticationService) {
@@ -26,10 +27,10 @@ export class UserService implements IUserService {
     const user = await this.repository.findByEmail(email);
     if (!user) return null;
     const passwordHash = await this.repository.findUserPasswordHash(email);
-    const isValid = await this.authService.verifyPassword(
+    const isValid = await this.authService.verifyPassword({
+      hash: passwordHash || "",
       password,
-      passwordHash || "",
-    );
+    });
     if (!isValid) return null;
     return user;
   }

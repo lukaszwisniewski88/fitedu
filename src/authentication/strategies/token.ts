@@ -1,5 +1,6 @@
 import { Strategy } from "passport-strategy";
 import { PassportStrategy } from "@nestjs/passport";
+import { v4 as uuidv4 } from "uuid";
 import {
   Inject,
   Injectable,
@@ -8,6 +9,7 @@ import {
 } from "@nestjs/common";
 import { Request } from "express";
 import { ConfigService } from "src/config/config.service";
+import { User } from "src/user/user.interface";
 
 @Injectable()
 export class TokenStrategy extends PassportStrategy(Strategy, "token") {
@@ -53,6 +55,14 @@ export class TokenStrategy extends PassportStrategy(Strategy, "token") {
     if (token !== configToken) {
       throw new UnauthorizedException();
     }
-    return { id: 1, username: "test" };
+    const tokenUser: User = {
+      id: uuidv4(),
+      email: "server@fitedu.com",
+      profileId: null,
+      role: "SUPER_ADMIN",
+      is_active: false,
+      deleted_at: null,
+    };
+    return tokenUser;
   }
 }

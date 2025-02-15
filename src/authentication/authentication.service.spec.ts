@@ -20,7 +20,10 @@ describe("AuthenticationService", () => {
     const hash = await service.hashPassword(password);
     console.log(hash);
     expect(hash).toBeDefined();
-    const isValid = await service.verifyPassword(hash, password);
+    const isValid = await service.verifyPassword({
+      password,
+      hash,
+    });
     expect(isValid).toBe(true);
   });
 });
