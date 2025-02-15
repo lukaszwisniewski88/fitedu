@@ -7,6 +7,7 @@
   "license": "MIT",
   "scripts": {
     "build": "bun build --target bun --outdir dist --minify ./src/main.ts",
+    "build:exec": "bun build --target bun --outfile dist/api.sh --minify ./src/main.ts --compile",
     "format": "biome format --write",
     "start": "bun run ./src/main.js",
     "start:dev": "bun --hot run ./src/main.js",
@@ -51,6 +52,7 @@
     "@nestjs/microservices": "^11.0.9",
     "@nestjs/platform-socket.io": "^11.0.9",
     "@nestjs/schematics": "^11.0.0",
+    "@nestjs/swagger": "^11.0.3",
     "@nestjs/testing": "^11.0.9",
     "@nestjs/websockets": "^11.0.9",
     "@swc/cli": "^0.6.0",
